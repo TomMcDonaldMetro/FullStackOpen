@@ -4,10 +4,11 @@ sequenceDiagram
     participant server
 
     browser ->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    note right of browser: The browser POSTs with the payload contained in the text input named "note"
     activate server
     server-->>browser: 302 Found
     deactivate server
-    note right of browser: The browser POSTs with the payload contained in the text input named "note"
+    
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
