@@ -96,15 +96,25 @@ function App() {
     setSearch(value);
   }
 
-  const getWeatherReport = (country) => {
-    weatherService.getReport(country.capitalInfo.latlng[0], country.capitalInfo.latlng[0])
-    .then(weatherResponse=> {
-      setWeatherReport(weatherResponse)
+  const getWeatherReport = () => {
+    const countriesArr = countries.filter((country) => country.name.common.toLowerCase().includes(search.toLowerCase()))
+
+    if(countriesArr.length === 1){
+      weatherService.getReport(countriesArr[0].capitalInfo.latlng[0], countriesArr[0].capitalInfo.latlng[0])
+      .then(weatherResponse=> {
+        setWeatherReport(weatherResponse)
+        setCountry(countriesArr[0])
     })
     .catch(error => console.log(error, " weather error in getting weather report."))
+    } else{
+      // need to discard changes otherwise since the past value will linger
+      setWeatherReport() 
+      setCountry({})
+      console.log("just skip over getting the weather report because we only want ONE")
+    }
   }
 
-  //useEffect(getWeatherReport, search);
+  useEffect(getWeatherReport, [search]);
 
   return (
     
