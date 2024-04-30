@@ -5,7 +5,7 @@ import weatherService from './services/weather'
 
 
 const Country = ({props}) => {
-  //<We  const valuesArr = Object.values(props.languages)
+  const valuesArr = Object.values(props.languages)
   return (
     <>
       <h3>{props.name.common}</h3>
@@ -48,18 +48,21 @@ const Countries = ({countries, searchValue, handler}) => {
   
   const tooManyFlag = countriesArr.length > 10
   return (
-    <div>      
-      {countriesArr.length === 1 ? 
-        
-          <Country props={countriesArr[0]} />
-        
+    <div>  
+      {tooManyFlag && searchValue !== '' ? 
+        <p>Too many please refine your search term</p>
+        :    
+      countriesArr.length === 1 ? 
+        <Country props={countriesArr[0]} />
        :<table>
           <tbody>
           {
           countriesArr.map(country =><tr key={country.name.common}><td>{country.name.common}</td><td><Button handler={()=> handler(country)}/></td></tr>)
           }
           </tbody>
-      </table>}
+      </table>
+      
+    }
     </div>
 
   )
@@ -77,8 +80,6 @@ function App() {
 
   const handleShow = (countryName) => {
     setSearch(countryName.name.common)
-    getWeatherReport(countryName)
-    setCountry(countryName)
   }
 
   const getAll = () => {
@@ -103,7 +104,7 @@ function App() {
     .catch(error => console.log(error, " weather error in getting weather report."))
   }
 
-  useEffect(getWeatherReport, search);
+  //useEffect(getWeatherReport, search);
 
   return (
     
@@ -114,3 +115,4 @@ function App() {
     </div>
   )
 }
+export default App
