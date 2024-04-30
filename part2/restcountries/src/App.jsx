@@ -5,7 +5,7 @@ import weatherService from './services/weather'
 
 
 const Country = ({props}) => {
-  const valuesArr = Object.values(props.languages)
+  //<We  const valuesArr = Object.values(props.languages)
   return (
     <>
       <h3>{props.name.common}</h3>
@@ -48,15 +48,12 @@ const Countries = ({countries, searchValue, handler}) => {
   
   const tooManyFlag = countriesArr.length > 10
   return (
-    <div>
-      {tooManyFlag && searchValue !== '' ?
-       <p>Too many matches, specify another filter.</p>
-      
-       :countriesArr.length === 1 ? 
+    <div>      
+      {countriesArr.length === 1 ? 
         
           <Country props={countriesArr[0]} />
         
-        :<table>
+       :<table>
           <tbody>
           {
           countriesArr.map(country =><tr key={country.name.common}><td>{country.name.common}</td><td><Button handler={()=> handler(country)}/></td></tr>)
@@ -106,16 +103,14 @@ function App() {
     .catch(error => console.log(error, " weather error in getting weather report."))
   }
 
+  useEffect(getWeatherReport, search);
+
   return (
     
     <div>
       find countries <input value={search} onChange={handleSearch} />
       <Countries countries={countries} searchValue={search} handler={handleShow}/>
       {weatherReport !== undefined ? <Weather countryObj={country} report={weatherReport} /> : null}
-
     </div>
-
   )
 }
-
-export default App
