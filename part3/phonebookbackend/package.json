@@ -1,0 +1,25 @@
+{
+  "name": "phonebookbackend",
+  "version": "0.0.1",
+  "description": "full stack exercise starting at 3.1",
+  "main": "index.js",
+  "scripts": {
+    "build:ui": "@powershell Remove-Item -Recurse -Force dist && cd ../phonebook && npm run build && @powershell Copy-Item dist -Recurse ../phonebookbackend",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tom McDonald",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.7",
+    "nodemon": "^3.1.3"
+  }
+}
